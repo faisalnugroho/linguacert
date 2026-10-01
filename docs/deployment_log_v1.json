@@ -1,0 +1,171 @@
+{
+  "deploy": {
+    "tx_hash": "0x10fe712549a54bd8502652ec435b0d0dc57f32dabe91ac8e1e2d7fc80a04904f",
+    "address": "0xE3797c5551F8137528Fcd974d67B9F83D8E7C99d"
+  },
+  "opens": {
+    "smoke-good-1": "translation-id-good.md",
+    "smoke-good-2": "translation-id-good.md",
+    "smoke-good-3": "translation-id-good.md",
+    "smoke-bad-1": "translation-id-dropped-values.md"
+  },
+  "smoke-good-1": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 62.3,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The Indonesian translation preserves all quantities (500, 1.000, 12.5, 40, 62, 48), model MX-200, bolt size M8, URLs, email, and placeholder {machine_id}. It is natural Indonesian with correct technical terms like 'pompa hidrolik', 'filter udara', 'sistem pendingin', 'baut M8', 'torsi 40 Nm', and 'sabuk penggerak'.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-good-2": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 81.1,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The translation preserves every quantity, date and technical number, keeps all URLs, placeholders and email addresses unchanged, and reads as natural, grammatically correct Indonesian with appropriate domain terminology.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-good-3": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 57.6,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "Semua angka teknis, URL, email, model, dan placeholder dipertahankan; terjemahan juga alami dalam bahasa Indonesia dengan istilah teknis yang sesuai konteks pemeliharaan mesin.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-bad-1": {
+    "file": "translation-id-dropped-values.md",
+    "verdict": "REJECTED",
+    "secs": 50.9,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [
+          "40",
+          "62"
+        ],
+        "missing_placeholders": [
+          "{machine_id}"
+        ],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 451
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 451,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The translation fails the first criterion because it omits the specific torque value (40 Nm) and the tension gauge calibration value (62 Niem), replacing them with vague descriptions. It fails the second criterion because it deletes the required {machine_id} placeholder. However, the Indonesian grammar and terminology for machine maintenance are correct and natural.",
+      "verdict": "REJECTED"
+    }
+  },
+  "results": {
+    "determinism_consistent": false,
+    "good_verdicts": [
+      "INCONCLUSIVE",
+      "INCONCLUSIVE",
+      "INCONCLUSIVE"
+    ],
+    "negative_verdict": "REJECTED",
+    "negative_rejected_as_expected": true
+  }
+}

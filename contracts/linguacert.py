@@ -173,6 +173,12 @@ def safe_result(reason, manifest, forensics):
             "citations": [], "manifest": manifest, "forensics": forensics}
 
 
+def _flatten(text):
+    """Deterministic whitespace collapse so a verbatim quote that includes
+    hard line wraps still matches the fetched document. Pure function."""
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def normalize(raw, documents, manifest, criterion_count):
     """Only stable decision substance leaves the nondet block: per-criterion
     labels and verbatim, document-indexed citations. Structural failures
@@ -212,9 +218,10 @@ def normalize(raw, documents, manifest, criterion_count):
                 continue
             if type(criterion) is not int or not 0 <= criterion < criterion_count:
                 continue
-            if not isinstance(quote, str) or not 20 <= len(quote) <= 400:
+            if not isinstance(quote, str) or not 6 <= len(quote) <= 400:
                 continue
-            if documents[source] == "" or quote not in documents[source]:
+            if documents[source] == "" or _flatten(quote) not in _flatten(
+                    documents[source]):
                 continue  # must be verbatim in the fetched, pinned document
             key = (source, quote, criterion)
             if key in seen:
@@ -459,12 +466,15 @@ class LinguaCert(gl.Contract):
                 "word PASS or FAIL or UNCERTAIN per criterion, in order), "
                 "\"reason\" (a string of 10 to 800 characters), \"citations\" (a "
                 "list of objects, each with keys \"source\" (int) and \"quote\" "
-                "(string)). Each quote must be a verbatim 20-400 character "
-                "substring copied EXACTLY from the fetched text at that source "
-                "index, and each citation must name the ONE criterion it is "
-                "evidence for in its \"criterion\" field; give each PASS or "
-                "FAIL label at least one citation quoting the TRANSLATION "
-                "(source 1) about THAT criterion. Do not choose any overall "
+                "(string)). Quote rules: copy the text VERBATIM from the "
+                "fetched source at that index, but write it on ONE line "
+                "(collapse any line breaks inside your quote to single "
+                "spaces); keep each quote short, between 6 and 400 "
+                "characters; and each citation must name the ONE criterion "
+                "it is evidence for in its \"criterion\" field; give each "
+                "PASS or FAIL label at least one citation quoting the "
+                "TRANSLATION (source 1) about THAT criterion. Do not choose "
+                "any overall "
                 "verdict.\nDATA="
                 + json.dumps({"criteria": criteria, "sources": documents})
             )
