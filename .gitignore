@@ -1,0 +1,11 @@
+# Secrets — NEVER commit
+scripts/smoke_deployer.json
+*.key
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+artifacts/
+.venv/
