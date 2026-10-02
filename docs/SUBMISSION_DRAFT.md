@@ -46,7 +46,7 @@ docs-only)
 - Explorer: https://explorer-studio.genlayer.com/contracts/0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c
 - Deploy tx: 0xab9f341503b7fc72a9fc13f37d5a22ab68f0d6db4a2a44e030aeaff5152d4491
 - Deployed code == repo (sha256 proof): 6b71c663364365b0b4e034c7c38e9690aa484f5547eecc8b8f452583ebad7a37
-  = sha256(contracts/linguacert.py) di commit 86998f6 — byte-identical,
+  = sha256(contracts/linguacert.py) di commit 52a1e4c — byte-identical,
   dibuktikan dari data.contract_code di deploy tx; tidak ada commit yang
   menyentuh contracts/ setelah deploy (git log 93e24b0..HEAD -- contracts/ kosong)
 
