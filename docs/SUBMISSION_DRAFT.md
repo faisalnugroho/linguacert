@@ -37,8 +37,9 @@ mengeksekusi ulang evaluasi yang sama dan hanya konvergen pada substansi
 stabil yang didukung bukti publik re-fetchable.
 
 ## Repo
-https://github.com/faisalnugroho/linguacert (HEAD 86998f6 saat audit;
-semua bukti di bawah diverifikasi ulang terhadap chain live + explorer API)
+https://github.com/faisalnugroho/linguacert (bukti + kode diverifikasi
+pada commit 52a1e4cdd5eef907c943a24ca0dcf569cab2d2f9; edits setelahnya
+docs-only)
 
 ## Kontrak live (Studionet)
 - Address: 0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c
