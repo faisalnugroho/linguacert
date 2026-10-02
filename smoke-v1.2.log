@@ -1,0 +1,22 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+[deploy] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+CONTRACT: 0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c
+explorer: https://explorer-studio.genlayer.com/address/0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c
+[open#smoke-good-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-good-2] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-good-3] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-bad-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+challenge window: sleeping 320s ...
+[resolve#smoke-good-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+smoke-good-1: APPROVED [99.9s]
+[resolve#smoke-good-2] FINALIZED vote=MAJORITY_AGREE exec=ERROR ok=False
+CONSENSUS/EXECUTION FAILED:
+{"votes": {"0x14402D49f317CE1a2F35BAE01b1804A2A9703dCb": "agree", "0x36728d2a123aB444E603EE5b2ad17d18Bb193557": "idle", "0x4404Fb70d490c935758146f42A73DC850FF95C71": "idle", "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2": "agree", "0x9ea87b28DcA2F79fe108CF06a4c13B4c876AC23d": "agree"}, "leader_receipt": [{"execution_result": "ERROR", "genvm_result": {"stderr": "", "stdout": "", "raw_error": null, "error_code": null, "error_description": null}, "mode": "leader", "vote": null, "node_config": {"stake": 100, "address": "0x36728d2a123aB444E603EE5b2ad17d18Bb193557", "primary_model": {"model": "policy:prd-grok", "config": {"policy_ir": ["policy", ["and", ["meets_req"], ["not", ["is", "disabled"]], ["cmp", "success_rate", "ge", 0.2], ["or", ["family_eq", "grok-4.3"], ["family_eq", "gpt-5.4"], ["family_eq", "gemini-3-flash-preview"]]], ["add", ["scale", 100, ["gate", ["family_eq", "grok-4.3"], ["lit", 1]]], ["scale", 10, ["gate", ["family_eq", "gpt-5.4"], ["lit", 1]]], ["scale", 1, ["gate", ["family_eq", "gemini-3-flash-preview"], ["lit", 1]]], ["scale", 0.25, ["neg", ["normalize", ["field", "price_in"]]]], ["scale", 0.45, ["neg", ["normalize", ["field", "price_out"]]]], ["scale", 0.2, ["field", "success_rate"]], ["scale", 0.1, ["neg", ["normalize", ["field", "latency_ms"]]]]], ["argmax"], ["id"], ["always", {"action": "next_candidate"}]], "timeout_ms": 22000, "first_token_timeout_ms": 7000}, "plugin": "openai-compatible", "provider": "llm-router", "plugin_config": {"api_url": "https://router.ygr.ai", "api_key_env_var": "LLM_ROUTER_API_KEY"}, "fallback_validator": "0x14402D49f317CE1a2F35BAE01b1804A2A9703dCb"}, "secondary_model": {"model": "anthropic/claude-sonnet-4.6", "config": {"models": ["anthropic/claude-sonnet-4.6", "openai/gpt-5.4", "google/gemini-3-flash-preview"]}, "plugin": "openai-compatible", "address": "0x14402D49f317CE1a2F35BAE01b1804A2A9703dCb", "provider": "openrouter", "plugin_config": {"api_url": "https://openrouter.ai/api", "api_key_env_var": "OPENROUTERAPIKE
+Traceback (most recent call last):
+  File "/home/ubuntu/linguacert/scripts/deploy_smoke.py", line 189, in <module>
+    main()
+  File "/home/ubuntu/linguacert/scripts/deploy_smoke.py", line 160, in main
+    wait_final(client, tx, f"resolve#{jid}")
+  File "/home/ubuntu/linguacert/scripts/deploy_smoke.py", line 90, in wait_final
+    raise RuntimeError(
+RuntimeError: resolve#smoke-good-2 failed: vote=MAJORITY_AGREE exec=ERROR

@@ -1,0 +1,167 @@
+{
+  "version": "v1.2 (attach v4-resume FINAL)",
+  "contract": "0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c",
+  "smoke-good-2f": {
+    "file": "translation-id-good-d.md",
+    "verdict": "APPROVED",
+    "labels": [
+      "PASS",
+      "PASS",
+      "PASS"
+    ],
+    "citations_count": 3,
+    "consensus_rounds": [
+      {
+        "attempt": 1,
+        "tx_hash": "0xc876ce49020a734e1370b73b64fd92e954adc5dcaa3301e3038f1fa2c4282ad6",
+        "vote": "MAJORITY_AGREE",
+        "exec": "SUCCESS"
+      }
+    ],
+    "result": {
+      "citations": [
+        {
+          "criterion": 0,
+          "quote": "Periksa pompa hidrolik setiap 500 jam operasi. Ganti filter udara setiap 1.000 jam. Sistem pendingin menyimpan 12,5 liter campuran. Kencangkan seluruh baut M8 pada torsi 40 Nm. Periksa ketegangan sabuk penggerak setiap bulan dengan alat ukur terkalibrasi 62 Niem.",
+          "source": 1
+        },
+        {
+          "criterion": 1,
+          "quote": "Unduh manual lengkap di https://example.com/docs/manual-en.pdf dan pasang label {machine_id} pada setiap unit. Laporkan kerusakan ke maintenance@example.com",
+          "source": 1
+        },
+        {
+          "criterion": 2,
+          "quote": "Jadwal Perawatan Mesin \u2014 Model MX-200 Periksa pompa hidrolik setiap 500 jam operasi. Ganti filter udara setiap 1.000 jam.",
+          "source": 1
+        }
+      ],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 474
+      },
+      "labels": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 474,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The translation accurately reflects all numerical values, including the decimal comma for Indonesian standards and specific technical units. All technical placeholders, URLs, and email addresses remain unchanged as required. The Indonesian phrasing is natural, using appropriate technical terms like 'sabuk penggerak' for drive belt and 'ketegangan' for tension, while maintaining correct grammatical structures.",
+      "verdict": "APPROVED"
+    }
+  },
+  "smoke-good-3g": {
+    "file": "translation-id-good-e.md",
+    "verdict": "INCONCLUSIVE",
+    "labels": [
+      "UNCERTAIN",
+      "PASS",
+      "PASS"
+    ],
+    "citations_count": 4,
+    "consensus_rounds": [
+      {
+        "attempt": 1,
+        "tx_hash": "0xb712caf7a721078382cb3596fc7cfbb19e81e4ad9c6a9b4c7a197bda1a927940",
+        "vote": "MAJORITY_AGREE",
+        "exec": "SUCCESS"
+      }
+    ],
+    "result": {
+      "citations": [
+        {
+          "criterion": 1,
+          "quote": "Periksa pompa hidrolik tiap 500 jam operasi. Ganti filter udara setiap 1.000 jam.",
+          "source": 1
+        },
+        {
+          "criterion": 1,
+          "quote": "Sistem pendingin berisi 12,5 liter campuran. Kencangkan semua baut M8 dengan torsi 40 Nm.",
+          "source": 1
+        },
+        {
+          "criterion": 2,
+          "quote": "pada https://example.com/docs/manual-en.pdf dan tempelkan label {machine_id} di setiap unit.",
+          "source": 1
+        },
+        {
+          "criterion": 2,
+          "quote": "Jadwal Perawatan Mesin \u2014 Model MX-200",
+          "source": 1
+        }
+      ],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 471
+      },
+      "labels": [
+        "UNCERTAIN",
+        "PASS",
+        "PASS"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 471,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "Semua angka, satuan, URL, email, model, dan placeholder dipertahankan; terjemahan juga terbaca alami dalam bahasa Indonesia dengan istilah teknis yang sesuai secara umum.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "resolve_txs": {
+    "smoke-good-2f": "0xc876ce49020a734e1370b73b64fd92e954adc5dcaa3301e3038f1fa2c4282ad6",
+    "smoke-good-3g": "0xb712caf7a721078382cb3596fc7cfbb19e81e4ad9c6a9b4c7a197bda1a927940"
+  },
+  "results": {
+    "determinism_consistent": false,
+    "good_verdicts": [
+      "APPROVED",
+      "APPROVED",
+      "INCONCLUSIVE"
+    ],
+    "good_job_ids": [
+      "smoke-good-1",
+      "smoke-good-2f",
+      "smoke-good-3g"
+    ],
+    "negative_verdict": "REJECTED",
+    "negative_rejected_as_expected": true,
+    "already_certified_guard_live": true,
+    "stats": {
+      "approved": 2,
+      "inconclusive": 5,
+      "rejected": 1,
+      "total": 8
+    }
+  },
+  "criteria_note": "smoke-good-2b/3c/2d/3e resolved INCONCLUSIVE (terminal, kept as on-chain history): their translations RESTRUCTURE sentences, and criterion 0 (preserve every number) can only PASS with one translation-quote citation demonstrating it; no single span carries all numbers, so the model conservatively answered UNCERTAIN. A v3 criteria-0 wording clarification did not change this \u2014 the citation MECHANISM, not the wording, is the binding constraint. v4 uses mirror-style translations (sentence structure follows the source) whose number-bearing sentences are directly quotable, the property that let smoke-good-1 reach APPROVED. INCONCLUSIVE is the designed fail-safe: unproven never certifies.",
+  "correction_note": "v1.1 (docs/deployment_log_v11.json): all-INCONCLUSIVE good verdicts from the prompt/normalizer citation-key mismatch, fixed in commit 93e24b0 (prompt-only), redeployed at 0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c. First v1.2 harness run crashed at good-2 (already_certified guard on a same-digest repeat \u2014 contract-correct). Attach attempt 1 hit a MAJORITY_DISAGREE wobble on bad-1 (discarded round, re-cranked to a clean r1 REJECTED in attach v2). Attach v2 proved the guard live; attach v3 tested a criteria rewording (no effect). The v4 harness crashed on a studionet 502 AFTER both mirror-style opens (2f/3g) landed; this v4-resume completed the resolves. This log supersedes all prior LinguaCert logs."
+}

@@ -19,7 +19,7 @@ from genlayer_py.types import TransactionStatus
 # ---------------- CONFIG ----------------
 CODE_PATH = Path("contracts/linguacert.py")
 KEYFILE = Path("scripts/smoke_deployer.json")   # gitignored!
-COMMIT = "3928ad0477bf5abf33596e81455dba04884289c0"  # linguacert examples commit
+COMMIT = "93e24b064671304654180a3d3741bf1bd2b698ef"  # linguacert v1.2 examples commit
 RAW = "https://raw.githubusercontent.com/faisalnugroho/linguacert/{commit}/examples/"
 DETERMINISM_RUNS = 3
 CHALLENGE = 300      # 5 min challenge window for the smoke (min allowed)

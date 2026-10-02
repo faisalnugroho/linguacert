@@ -1,0 +1,31 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+== live state ==
+smoke-good-1: APPROVED
+smoke-bad-1: REJECTED
+smoke-good-2b: INCONCLUSIVE
+smoke-good-3c: INCONCLUSIVE
+PASS good-1 APPROVED (live)
+PASS bad-1 REJECTED (live)
+PASS 2b/3c INCONCLUSIVE (terminal, kept as history)
+== already_certified guard evidence ==
+PASS guard tx execution_result == ERROR
+PASS revert reason decodes to already_certified ('\x01already_certified')
+PASS guard tx calldata is resolve(smoke-good-2)
+== opens (clarified criteria) ==
+[open#smoke-good-2d] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+[open#smoke-good-3e] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+== resolve clarified jobs ==
+[smoke-good-2d] challenge: sleeping 245s
+[resolve#smoke-good-2d r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+FAIL smoke-good-2d verdict APPROVED
+smoke-good-2d: INCONCLUSIVE labels=['UNCERTAIN', 'PASS', 'PASS']
+[resolve#smoke-good-3e r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+FAIL smoke-good-3e verdict APPROVED
+smoke-good-3e: INCONCLUSIVE labels=['UNCERTAIN', 'PASS', 'PASS']
+stats: {'approved': 1, 'inconclusive': 4, 'rejected': 1, 'total': 6}
+FAIL 3x distinct-digest good runs APPROVED (determinism)
+FAIL live stats approved=3 rejected=1 inconclusive=2
+DETERMINISM_CONSISTENT: False
+NEGATIVE_REJECTED: True
+GUARD_PROVEN_LIVE: True
+FAILURES: ['smoke-good-2d verdict APPROVED', 'smoke-good-3e verdict APPROVED', '3x distinct-digest good runs APPROVED (determinism)', 'live stats approved=3 rejected=1 inconclusive=2']

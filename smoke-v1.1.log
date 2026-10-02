@@ -1,0 +1,20 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+[deploy] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+CONTRACT: 0xe405f86A08D40C495C33dcBfE16097e78DA7B005
+explorer: https://explorer-studio.genlayer.com/address/0xe405f86A08D40C495C33dcBfE16097e78DA7B005
+[open#smoke-good-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-good-2] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-good-3] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-bad-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+challenge window: sleeping 320s ...
+[resolve#smoke-good-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+smoke-good-1: INCONCLUSIVE [62.3s]
+[resolve#smoke-good-2] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+smoke-good-2: INCONCLUSIVE [109.1s]
+[resolve#smoke-good-3] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+smoke-good-3: INCONCLUSIVE [66.7s]
+[resolve#smoke-bad-1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+smoke-bad-1: REJECTED [54.9s]
+DETERMINISM_CONSISTENT: False
+NEGATIVE_REJECTED: True
+DONE. contract: 0xe405f86A08D40C495C33dcBfE16097e78DA7B005

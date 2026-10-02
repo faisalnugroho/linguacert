@@ -1,0 +1,26 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+== live state ==
+smoke-good-1: status=RESOLVED verdict=APPROVED
+smoke-bad-1: status=RESOLVED verdict=REJECTED
+smoke-good-2b: status=RESOLVED verdict=INCONCLUSIVE
+smoke-good-3c: status=RESOLVED verdict=INCONCLUSIVE
+smoke-good-2d: status=RESOLVED verdict=INCONCLUSIVE
+smoke-good-3e: status=RESOLVED verdict=INCONCLUSIVE
+smoke-good-2f: status=OPEN verdict=None
+smoke-good-3g: status=OPEN verdict=None
+PASS good-1 APPROVED (live)
+PASS bad-1 REJECTED (live)
+[resolve#smoke-good-2f r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+PASS smoke-good-2f verdict APPROVED
+smoke-good-2f: APPROVED labels=['PASS', 'PASS', 'PASS']
+[resolve#smoke-good-3g r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+FAIL smoke-good-3g verdict APPROVED
+smoke-good-3g: INCONCLUSIVE labels=['UNCERTAIN', 'PASS', 'PASS']
+stats: {'approved': 2, 'inconclusive': 5, 'rejected': 1, 'total': 8}
+resolve_txs: {"smoke-good-2f": "0xc876ce49020a734e1370b73b64fd92e954adc5dcaa3301e3038f1fa2c4282ad6", "smoke-good-3g": "0xb712caf7a721078382cb3596fc7cfbb19e81e4ad9c6a9b4c7a197bda1a927940"}
+FAIL 3x distinct-digest good runs APPROVED (determinism)
+FAIL live stats approved=3 rejected=1 inconclusive=4
+DETERMINISM_CONSISTENT: False
+NEGATIVE_REJECTED: True
+GUARD_PROVEN_LIVE: True (attach v2, tx 0xebd550caefba...)
+FAILURES: ['smoke-good-3g verdict APPROVED', '3x distinct-digest good runs APPROVED (determinism)', 'live stats approved=3 rejected=1 inconclusive=4']

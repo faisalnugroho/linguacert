@@ -1,0 +1,21 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+== provenance recovery ==
+PASS deployed code byte-identical to repo (sha256 6b71c663364365b0...)
+PASS recovered open tx calldata matches smoke-good-1
+PASS recovered open tx calldata matches smoke-good-2
+PASS recovered open tx calldata matches smoke-good-3
+PASS recovered open tx calldata matches smoke-bad-1
+PASS smoke-good-1 live: APPROVED / PASS x3 / citations present
+== opens ==
+[open#smoke-good-2b] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+[open#smoke-good-3c] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+== negative ==
+[resolve#smoke-bad-1] FINALIZED vote=MAJORITY_DISAGREE exec=SUCCESS ok=False
+Traceback (most recent call last):
+  File "/home/ubuntu/linguacert/scripts/attach_v12.py", line 287, in <module>
+    main()
+  File "/home/ubuntu/linguacert/scripts/attach_v12.py", line 199, in main
+    wait_final(client, tx, "resolve#smoke-bad-1")
+  File "/home/ubuntu/linguacert/scripts/attach_v12.py", line 103, in wait_final
+    raise RuntimeError(f"{label} failed: vote={vote_result} "
+RuntimeError: resolve#smoke-bad-1 failed: vote=MAJORITY_DISAGREE exec=SUCCESS

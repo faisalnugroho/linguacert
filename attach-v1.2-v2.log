@@ -1,0 +1,32 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+== provenance recovery ==
+PASS deployed code byte-identical to repo (sha256 6b71c663364365b0...)
+PASS recovered open tx calldata matches smoke-good-1
+PASS recovered open tx calldata matches smoke-good-2
+PASS recovered open tx calldata matches smoke-good-3
+PASS recovered open tx calldata matches smoke-bad-1
+PASS smoke-good-1 live: APPROVED / PASS x3 / citations present
+== opens (idempotent) ==
+[open#smoke-good-2b] already exists — skip
+[open#smoke-good-3c] already exists — skip
+== negative (bad-1) ==
+[resolve#smoke-bad-1 r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+PASS smoke-bad-1 sealed with successful execution
+PASS smoke-bad-1 verdict REJECTED
+PASS smoke-bad-1 forensics caught dropped numbers + placeholder
+== already_certified guard proof ==
+[resolve#smoke-good-2 (guard probe)] FINALIZED vote=MAJORITY_AGREE exec=ERROR ok=True
+PASS re-certification of same digest reverted (deterministic revert accepted by consensus)
+FAIL revert reason is already_certified
+== resolve new good variants ==
+[resolve#smoke-good-2b r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+FAIL smoke-good-2b verdict APPROVED
+[resolve#smoke-good-3c r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS ok=True
+FAIL smoke-good-3c verdict APPROVED
+stats: {'approved': 1, 'inconclusive': 2, 'rejected': 1, 'total': 4}
+FAIL 3x distinct-digest good runs all APPROVED (determinism)
+FAIL live stats: approved=3 rejected=1
+DETERMINISM_CONSISTENT: False
+NEGATIVE_REJECTED: True
+GUARD_PROVEN_LIVE: False
+FAILURES: ['revert reason is already_certified', 'smoke-good-2b verdict APPROVED', 'smoke-good-3c verdict APPROVED', '3x distinct-digest good runs all APPROVED (determinism)', 'live stats: approved=3 rejected=1']

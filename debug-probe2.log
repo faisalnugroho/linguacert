@@ -1,0 +1,6 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+debug contract: 0x5199bD310799E8c2C9132384d66138A556F56162
+probe vote: MAJORITY_AGREE exec: None
+docs_len: [466, 468]
+=== RAW MODEL OUTPUT ===
+{'citations': [{'criterion': 0, 'quote': 'Periksa pompa hidrolik setiap 500 jam operasi. Ganti filter udara setiap 1.000 jam. Sistem pendingin menampung 12,5 liter campuran.', 'source': 1}, {'criterion': 0, 'quote': 'semua baut M8 pada torsi 40 Nm. Periksa ketegangan sabuk penggerak setiap bulan dengan alat ukur terkalibrasi 62 Niem.', 'source': 1}, {'criterion': 0, 'quote': 'Laporkan cacat ke maintenance@example.com dalam 48 jam.', 'source': 1}, {'criterion': 1, 'quote': 'https://example.com/docs/manual-en.pdf dan tempel label {machine_id} pada setiap unit. Laporkan cacat ke maintenance@example.com', 'source': 1}, {'criterion': 2, 'quote': 'Jadwal Perawatan Mesin — Model MX-200 Periksa pompa hidrolik setiap 500 jam operasi. Ganti filter udara setiap 1.000 jam.', 'source': 1}, {'criterion': 2, 'quote': 'Sistem pendingin menampung 12,5 liter campuran. Kencangkan semua baut M8 pada torsi 40 Nm.', 'source': 1}], 'labels': ['PASS', 'PASS', 'PASS'], 'reason': 'Semua angka teknis, URL, placeholder, dan alamat email dipertahankan; terjemahan juga terbaca alami dalam bahasa Indonesia dengan istilah teknis yang sesuai.'}

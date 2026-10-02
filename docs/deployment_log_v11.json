@@ -1,0 +1,171 @@
+{
+  "deploy": {
+    "tx_hash": "0x4dac7470eb388ca46195866bc3ce165f63fd65acfa7c88ecab329ffb5e8fb6ff",
+    "address": "0xe405f86A08D40C495C33dcBfE16097e78DA7B005"
+  },
+  "opens": {
+    "smoke-good-1": "translation-id-good.md",
+    "smoke-good-2": "translation-id-good.md",
+    "smoke-good-3": "translation-id-good.md",
+    "smoke-bad-1": "translation-id-dropped-values.md"
+  },
+  "smoke-good-1": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 62.3,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The translation accurately preserves all quantities (500 jam, 1.000 jam, 12,5 liter, 40 Nm, 62 Niem, 48 jam), technical numbers (M8), and dates (setiap bulan). It keeps all URLs and placeholders unchanged (https://example.com/docs/manual-en.pdf, {machine_id}, maintenance@example.com). The Indonesian text reads naturally with correct grammar and appropriate technical terminology for a maintenance schedule.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-good-2": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 109.1,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "All quantities, URLs, placeholders and email addresses match exactly between source 0 and source 1. The Indonesian text uses correct grammar, natural phrasing and appropriate technical terms such as 'pompa hidrolik' and 'torsi'.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-good-3": {
+    "file": "translation-id-good.md",
+    "verdict": "INCONCLUSIVE",
+    "secs": 66.7,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [],
+        "missing_placeholders": [],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 468
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 468,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "The translation accurately reflects all numerical data, including units of measurement and time intervals. All technical identifiers, the URL, and the curly-brace placeholder were preserved exactly as required. The Indonesian phrasing is natural and uses appropriate technical terminology such as 'pompa hidrolik' and 'ketegangan sabuk penggerak', adhering to standard grammar and punctuation conventions for the target language.",
+      "verdict": "INCONCLUSIVE"
+    }
+  },
+  "smoke-bad-1": {
+    "file": "translation-id-dropped-values.md",
+    "verdict": "REJECTED",
+    "secs": 54.9,
+    "result": {
+      "citations": [],
+      "forensics": {
+        "missing_numbers": [
+          "40",
+          "62"
+        ],
+        "missing_placeholders": [
+          "{machine_id}"
+        ],
+        "missing_urls": [],
+        "source_chars": 466,
+        "translation_chars": 451
+      },
+      "labels": [
+        "UNCERTAIN",
+        "UNCERTAIN",
+        "UNCERTAIN"
+      ],
+      "manifest": [
+        {
+          "bytes": 466,
+          "digest_ok": true,
+          "index": 0,
+          "truncated": false
+        },
+        {
+          "bytes": 451,
+          "digest_ok": true,
+          "index": 1,
+          "truncated": false
+        }
+      ],
+      "reason": "Beberapa angka dan istilah teknis hilang/diubah: 40 Nm dan 62 Niem tidak dipertahankan. Placeholder {machine_id} juga dihapus, meski URL dan email tetap sama. Secara umum terjemahan tetap alami dan gramatikal dalam bahasa Indonesia.",
+      "verdict": "REJECTED"
+    }
+  },
+  "results": {
+    "determinism_consistent": false,
+    "good_verdicts": [
+      "INCONCLUSIVE",
+      "INCONCLUSIVE",
+      "INCONCLUSIVE"
+    ],
+    "negative_verdict": "REJECTED",
+    "negative_rejected_as_expected": true
+  }
+}
