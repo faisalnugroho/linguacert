@@ -35,7 +35,7 @@ from genlayer_py.types import TransactionStatus
 
 ADDR = "0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c"
 KEYFILE = Path("scripts/smoke_deployer.json")
-COMMIT = "4482b0eab32425a423f46ece6b91c343a9873819"
+COMMIT = "86998f69777979fc7a9f6b7167f1fce972ddd4b8"
 RAW = "https://raw.githubusercontent.com/faisalnugroho/linguacert/{commit}/examples/"
 CHALLENGE = 300
 WINDOW = 3600

@@ -1,0 +1,14 @@
+deployer: 0x5E77b8D3655918454134a2d5BAd9dd76B741b4cB
+PASS translation digest unique vs all prior
+[open#smoke-good-3h] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+[smoke-good-3h] challenge: sleeping 284s
+[resolve#smoke-good-3h r1] FINALIZED vote=MAJORITY_AGREE exec=SUCCESS
+PASS smoke-good-3h verdict APPROVED
+smoke-good-3h: APPROVED labels=['PASS', 'PASS', 'PASS']
+stats: {'approved': 3, 'inconclusive': 5, 'rejected': 1, 'total': 9}
+PASS 3x distinct-digest good runs APPROVED (determinism)
+PASS live stats approved=3 rejected=1
+DETERMINISM_CONSISTENT: True
+NEGATIVE_REJECTED: True
+GUARD_PROVEN_LIVE: True (attach v2, tx 0xebd550caefba...)
+ATTACH V5 DONE. contract: 0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c
