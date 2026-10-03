@@ -82,6 +82,23 @@ GENVMROOT=/tmp/genvmroot genvm-lint check contracts/linguacert.py
 # 3 checks passed, contract valid: 9 methods (4 view, 5 write)
 ```
 
+## Live demo (dApp)
+
+**https://faisalnugroho.github.io/linguacert/**
+
+A single-file dApp (in `frontend/`) wired to the deployed contract above.
+Everything shown is read live from the chain; writes use a browser burner
+wallet funded by the Studionet faucet. The **Certify** flow opens a real
+job from two pinned demo pairs — a faithful translation (expected
+`APPROVED`) and a values-dropped one (expected `REJECTED`, forced by the
+deterministic forensics) — waits out the node-clock challenge period, and
+resolves permissionlessly, printing the consensus verdict, per-criterion
+labels, verbatim citations and forensics.
+
+A ≤30s screen-captured tutorial of this exact flow is in
+`artifacts/lingua-cert-demo.mp4` (open a job → challenge countdown →
+resolve → `APPROVED` verdict with citations).
+
 ## Live evidence
 
 See `docs/SUBMISSION_DRAFT.md` (contract address, tx hashes, explorer
