@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinguaCert — Trustless Translation Certification</title>
+<meta name="description" content="Consensus-backed translation certification on GenLayer: deterministic forensics plus verdict-anchored citations. Live on Studionet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F4EF; --panel:#FFFFFF; --ink:#1F2A37; --dim:#5C6672;
+  --line:#D9D3C5; --stamp:#BF3B2B; --green:#1E6E46; --amber:#9A6B0F;
+  --teal:#175E54; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:"Spectral",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+a{color:var(--teal)}
+a:hover{text-decoration:underline}
+h1,h2{font-family:var(--serif);font-weight:600;line-height:1.2}
+h1{font-size:34px;margin:10px 0 8px}
+h2{font-size:22px;margin:8px 0}
+.dim{color:var(--dim)}
+.mono{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+.id-sub{font-size:12.5px;color:var(--dim);font-style:italic}
+header{border-bottom:1px solid var(--line)}
+header .bar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--ink);text-decoration:none}
+.brand b{color:var(--stamp)}
+.brand:hover{text-decoration:none}
+nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+nav a{color:var(--dim);text-decoration:none;font-size:13.5px}
+nav a.active{color:var(--ink);font-weight:600;border-bottom:2px solid var(--stamp)}
+nav a:hover{color:var(--ink)}
+.net{font-family:var(--mono);font-size:11px;color:var(--dim);border:1px solid var(--line);padding:3px 8px;border-radius:999px;white-space:nowrap}
+main{padding:26px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;margin:14px 0}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--stamp);text-transform:uppercase}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:760px){.hero-grid{grid-template-columns:1.15fr .85fr}}
+.gutter-doc{display:grid;grid-template-columns:1fr 1fr;position:relative;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+.gutter-doc>*{padding:14px 16px;font-size:12.8px;line-height:1.55}
+.gutter-doc .doc+.doc{border-left:1px dashed var(--stamp)}
+.doc-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);display:block;margin-bottom:6px}
+.doc+.doc .doc-label{color:var(--stamp)}
+.btn{display:inline-block;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover{background:#000}
+.btn:hover{text-decoration:none}
+.btn.secondary{background:transparent;color:var(--ink)}
+.btn.small{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat strong{font-family:var(--serif);font-size:26px;display:block}
+.stat span{font-size:12px;color:var(--dim)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:760px){.steps{grid-template-columns:repeat(2,1fr)}}
+.step-n{font-family:var(--mono);font-size:11px;color:var(--stamp);letter-spacing:.12em}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:999px;border:1px solid}
+.badge.OPEN,.badge.DISPUTED{color:var(--amber);border-color:var(--amber)}
+.badge.RESOLVED-APPROVED{color:var(--green);border-color:var(--green)}
+.badge.RESOLVED-REJECTED{color:var(--stamp);border-color:var(--stamp)}
+.badge.RESOLVED-INCONCLUSIVE{color:var(--amber);border-color:var(--amber)}
+.badge.PASS{color:var(--green);border-color:var(--green)}
+.badge.FAIL{color:var(--stamp);border-color:var(--stamp)}
+.badge.UNCERTAIN{color:var(--amber);border-color:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.click{cursor:pointer}
+tr.click:hover{background:#FBFAF6}
+.stamp{display:inline-block;transform:rotate(-6deg);border:3px double var(--stamp);color:var(--stamp);font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:.22em;padding:10px 22px;border-radius:6px;margin:10px 0;text-transform:uppercase}
+.stamp.APPROVED{border-color:var(--green);color:var(--green)}
+.stamp.REJECTED{border-color:var(--stamp);color:var(--stamp)}
+.stamp.INCONCLUSIVE{border-color:var(--amber);color:var(--amber)}
+blockquote{border-left:3px solid var(--line);padding:6px 12px;margin:8px 0;font-size:13.5px;background:#FBFAF6;border-radius:0 6px 6px 0}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+input[type=text],textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font:inherit;background:#fff}
+textarea{font-family:var(--mono);font-size:12.5px;resize:vertical}
+.statusline{font-size:13.5px;padding:10px 12px;border-radius:8px;background:#FBFAF6;border:1px solid var(--line);margin:10px 0}
+.statusline.err{border-color:var(--stamp);color:var(--stamp);background:#FDF6F5}
+.countdown{font-family:var(--mono);font-size:13px;color:var(--amber)}
+footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12.5px;color:var(--dim)}
+.kv{display:grid;grid-template-columns:170px 1fr;gap:6px 14px;font-size:13.5px;margin:8px 0}
+.kv .k{font-family:var(--mono);font-size:11.5px;color:var(--dim);padding-top:2px}
+details{margin:10px 0}
+summary{cursor:pointer;font-weight:600;font-size:13.5px}
+.hidden{display:none}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){.stamp{animation:stampIn .35s ease-out}}
+@keyframes stampIn{from{transform:rotate(-6deg) scale(1.6);opacity:0}to{transform:rotate(-6deg) scale(1);opacity:1}}
+</style>
+<script defer src="genlayer-sdk.bundle.js"></script>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="#/" data-nav>LinguaCert<b>.</b></a>
+  <nav>
+    <a href="#/" data-nav data-route="/">Certify</a>
+    <a href="#/jobs" data-nav data-route="/jobs">On-chain jobs</a>
+    <a href="https://github.com/faisalnugroho/linguacert" target="_blank" rel="noopener">Source ↗</a>
+    <a id="explorerLink" href="#" target="_blank" rel="noopener">Contract ↗</a>
+  </nav>
+  <span class="net">GENLAYER / STUDIONET</span>
+</div></header>
+<main class="wrap" id="app"></main>
+<footer><div class="wrap">
+  <p>LinguaCert · GenLayer Intelligent Contract · Studionet testnet. A certification is a validator-consensus quality opinion — <strong>not</strong> a sworn or human certified translation.</p>
+  <p class="mono" id="footContract"></p>
+</div></footer>
+<noscript><p style="padding:20px">JavaScript is required to interact with GenLayer. Read the source and verification evidence via the links above.</p></noscript>
+<script>
+'use strict';
+/* Every displayed decision comes from the deployed contract — nothing canned.
+   Contract: 0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c (v1.2, deployed code
+   == repo sha256-proof, see docs/SUBMISSION_DRAFT.md). */
+const SDK = window.GenLayerSDK;
+const CONTRACT_ADDR = window.LINGUACERT_CONTRACT || "0x47a503A6aFe396525dd02C61c44A25fa72BcbB6c";
+const CHAIN = SDK.studionet;
+const EXPLORER = "https://explorer-studio.genlayer.com";
+const EXAMPLES_COMMIT = "EXAMPLES_COMMIT_PLACEHOLDER";
+const RAW = "https://raw.githubusercontent.com/faisalnugroho/linguacert/" + EXAMPLES_COMMIT + "/examples/";
+const CRITERIA_DEFAULT = [
+  "The translation preserves every quantity, date and technical number from the source. Citation convention: criteria are numbered from 0 (this is criterion 0); cite the translated sentence(s) that carry the numbers — one citation may quote several adjacent sentences, and EN/ID separator differences (1,000 vs 1.000; 12.5 vs 12,5) are the same values in different locales.",
+  "The translation keeps all URLs, code identifiers and placeholders such as {machine_id} unchanged. (Criterion 1.)",
+  "The translation reads as natural, grammatically correct Indonesian with correct domain terminology. (Criterion 2.)"
+];
+const DEMOS = {
+  good: { file:"translation-id-good-g.md", title:"Maintenance manual EN→ID (faithful)",
+          hint:"Expected APPROVED — every number, URL and placeholder preserved.",
+          source:"source-en.md" },
+  bad:  { file:"translation-id-dropped-values.md", title:"Maintenance manual EN→ID (values dropped)",
+          hint:"Expected REJECTED — quantities and placeholders were dropped; deterministic forensics force it.",
+          source:"source-en.md" }
+};
+const WKEY = "linguacert_wallet";
+const $ = (sel, el) => (el||document).querySelector(sel);
+const app = $("#app");
+const esc = s => String(s==null?"":s).replace(/[&<>\"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const parseJsonSafe = s => { try { return JSON.parse(s); } catch { return null; } };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ---------- read/write (licenseloom-proven studionet pattern) ---------- */
+async function readContract(fn, args){
+  if(!window.__lcReadClient){
+    const pk = SDK.generatePrivateKey();
+    window.__lcReadClient = SDK.createClient({ chain: CHAIN, account: SDK.createAccount(pk) });
+  }
+  for(let a=0;a<3;a++){
+    try{
+      const raw = await window.__lcReadClient.readContract({ address: CONTRACT_ADDR, functionName: fn, args });
+      return typeof raw === "string" ? parseJsonSafe(raw) : raw;
+    }catch(e){ if(a===2) throw e; await sleep(1500*(a+1)); }
+  }
+}
+function loadWallet(){
+  try { return JSON.parse(localStorage.getItem(WKEY)||"null"); } catch { return null; }
+}
+async function ensureWallet(){
+  let w = loadWallet();
+  if(w) return w;
+  const pk = SDK.generatePrivateKey();
+  const acct = SDK.createAccount(pk);
+  w = { address: acct.address, pk };
+  localStorage.setItem(WKEY, JSON.stringify(w));
+  const client = SDK.createClient({ chain: CHAIN });
+  try { await client.request({ method:"sim_fundAccount", params:[w.address, "5000000000000000000"] }); } catch(e){}
+  return w;
+}
+async function sendWrite(fn, args, onStatus){
+  const w = await ensureWallet();
+  const account = SDK.createAccount(w.pk);
+  const client = SDK.createClient({ chain: CHAIN, account });
+  onStatus && onStatus("Submitting to Studionet… / Mengirim ke Studionet…");
+  const txHash = await client.writeContract({ address: CONTRACT_ADDR, functionName: fn, args, account });
+  onStatus && onStatus("Submitted — awaiting consensus… / Menunggu konsensus… tx " + txHash.slice(0,18) + "…");
+  const receipt = await Promise.race([
+    client.waitForTransactionReceipt({ hash: txHash, status: SDK.TransactionStatus.FINALIZED, interval: 5000, retries: 90 }),
+    new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout awaiting finalization — the tx may still finalize; check the explorer link")), 8*60*1000)),
+  ]);
+  const leader = receipt && receipt.consensus_data && Array.isArray(receipt.consensus_data.leader_receipt) ? receipt.consensus_data.leader_receipt[0] : null;
+  const exec = receipt && receipt.tx_execution_result_name !== undefined && receipt.tx_execution_result_name !== null ? receipt.tx_execution_result_name : (leader ? leader.execution_result : undefined);
+  const resultName = receipt && receipt.result_name;
+  if (exec === "FAILURE" || exec === "ERROR" || resultName === "MAJORITY_DISAGREE" || resultName === "NO_MAJORITY") {
+    const stderr = String((leader&&leader.genvm_result&&leader.genvm_result.stderr)||"");
+    const m = stderr.match(/AssertionError: ([^\n]+)/);
+    throw new Error((m&&m[1]) ? m[1] : (fn+" did not execute successfully on chain (exec="+(exec||"?")+", vote="+(resultName||"?")+")"));
+  }
+  return { txHash, receipt };
+}
+function txLink(h){ return EXPLORER + "/tx/" + h; }
+function verdictBadge(rec){
+  if(rec.status!=="RESOLVED") return '<span class="badge '+esc(rec.status)+'">'+esc(rec.status)+'</span>';
+  const v=(rec.result&&rec.result.verdict)||"?";
+  return '<span class="badge RESOLVED-'+esc(v)+'">'+esc(v)+'</span>';
+}
+async function sha256Hex(text){
+  const buf = new TextEncoder().encode(text);
+  const h = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(h), b=>b.toString(16).padStart(2,"0")).join("");
+}
+async function fetchText(url){
+  const r = await fetch(url);
+  if(!r.ok) throw new Error("fetch failed: HTTP "+r.status+" for "+url);
+  return await r.text();
+}
+
+/* ---------- router ---------- */
+function route(){
+  const h = location.hash.replace(/^#/,"") || "/";
+  document.querySelectorAll("nav a[data-route]").forEach(a=>a.classList.toggle("active", a.getAttribute("data-route")===h || (h==="/"&&a.getAttribute("data-route")==="/")));
+  if(h==="/"||h==="") return renderHome();
+  if(h==="/jobs") return renderJobs();
+  const jm = h.match(/^\/job\/([a-z0-9-]+)$/);
+  if(jm) return renderJob(jm[1]);
+  if(h==="/certify") return renderCertify();
+  return renderHome();
+}
+window.addEventListener("hashchange", route);
+document.body.addEventListener("click", e=>{
+  const a = e.target.closest("a[data-nav]");
+  if(a && a.getAttribute("href").startsWith("#/")){ /* default anchor behavior works with hash routes */ }
+});
+
+/* ---------- home ---------- */
+async function renderHome(){
+  app.innerHTML = `
+  <section class="hero-grid">
+    <div>
+      <p class="eyebrow">Consensus adjudication · live on Studionet</p>
+      <h1>Certified by consensus,<br>not by one API call.</h1>
+      <p class="id-sub">Tersertifikasi lewat konsensus — bukan sekali panggil API.</p>
+      <p style="margin:10px 0 4px">Pin a source text and its translation by SHA-256, add acceptance criteria, and let independent GenLayer validators re-run the same evidence-based evaluation: deterministic forensics plus per-criterion citations verified verbatim on-chain.</p>
+      <p class="id-sub">Kunci teks sumber &amp; terjemahan dengan SHA-256, tambahkan kriteria, lalu validator GenLayer mengeksekusi ulang evaluasi yang sama: forensik deterministik + sitasi yang diverifikasi on-chain.</p>
+      <p style="margin:16px 0 6px">
+        <a class="btn" href="#/certify" data-nav>Certify a translation</a>
+        <a class="btn secondary" href="#/jobs" data-nav style="margin-left:8px">Browse on-chain jobs</a>
+      </p>
+      <p class="dim" style="font-size:12.5px">Certify / Bersertifikasi · both write paths run the real deployed contract — nothing on this page is canned.</p>
+    </div>
+    <div class="gutter-doc" aria-hidden="true">
+      <div class="doc"><span class="doc-label">SOURCE · EN — pinned</span>Inspect the hydraulic pump every 500 hours of operation. Replace the air filter every 1,000 hours. The coolant system holds 12.5 liters… keep a {machine_id} label on each unit.</div>
+      <div class="doc"><span class="doc-label">TERJEMAHAN · ID — candidate</span>Periksa pompa hidrolik setiap 500 jam operasi. Ganti filter udara setiap 1.000 jam. Sistem pendingin menampung 12,5 liter… tempel label {machine_id} pada setiap unit.</div>
+    </div>
+  </section>
+  <div id="statsBox"><p class="statusline">Reading live contract stats…</p></div>
+  <section class="card">
+    <h2>How a certification happens</h2>
+    <p class="id-sub">Bagaimana sertifikasi terjadi.</p>
+    <div class="steps" style="margin-top:12px">
+      <div><span class="step-n">01 · PIN</span><p style="font-size:13px">Source and translation commit-pinned on GitHub, hash-locked by SHA-256.</p></div>
+      <div><span class="step-n">02 · OPEN</span><p style="font-size:13px">A job opens onchain with natural-language acceptance criteria.</p></div>
+      <div><span class="step-n">03 · CHALLENGE</span><p style="font-size:13px">A node-clock challenge window; anyone may add evidence or dispute.</p></div>
+      <div><span class="step-n">04 · RESOLVE</span><p style="font-size:13px">Validators re-execute; forensics force REJECTED on any dropped number; unproven stays INCONCLUSIVE.</p></div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Two independent decision layers</h2>
+    <div class="kv">
+      <div class="k">FORENSICS</div><div>Contract-computed and model-independent: every numeral, URL and <span class="mono">{placeholder}</span> in the source must survive translation (1,000 == 1.000). Any violation forces <strong>REJECTED</strong>.</div>
+      <div class="k">LLM + CITATIONS</div><div>Per-criterion PASS/FAIL/UNCERTAIN — every PASS must stand on a verbatim quote of the translation itself, re-validated on-chain against the pinned bytes. A fooled model cannot fabricate evidence.</div>
+    </div>
+    <p class="dim" style="font-size:12.5px;margin-top:8px">The verdict is always derived by the contract from labels + gates — never chosen by the model.</p>
+  </section>`;
+  try{
+    const stats = await readContract("get_stats", []);
+    $("#statsBox").innerHTML = `<div class="stats" style="margin-top:18px">
+      <div class="stat"><strong>${esc(stats.total)}</strong><span>Jobs on chain · total job</span></div>
+      <div class="stat"><strong style="color:var(--green)">${esc(stats.approved)}</strong><span>Approved</span></div>
+      <div class="stat"><strong style="color:var(--stamp)">${esc(stats.rejected)}</strong><span>Rejected</span></div>
+      <div class="stat"><strong style="color:var(--amber)">${esc(stats.inconclusive)}</strong><span>Inconclusive — fail-safe by design</span></div>
+    </div>`;
+  }catch(e){
+    $("#statsBox").innerHTML = '<p class="statusline err">Could not read live stats: '+esc(e.message)+'</p>';
+  }
+}
+
+/* ---------- jobs list ---------- */
+async function renderJobs(){
+  app.innerHTML = `<h1>On-chain jobs</h1>
+  <p class="id-sub">Semua job live dari kontrak — termasuk riwayat INCONCLUSIVE sebagai bukti fail-safe.</p>
+  <div id="jobsBox"><p class="statusline">Reading jobs from the contract…</p></div>`;
+  try{
+    const ids = await readContract("list_jobs", []);
+    const recs = await Promise.all(ids.map(id => readContract("get_job", [id]).catch(()=>null)));
+    const rows = ids.map((id,i)=>{
+      const r = recs[i]; if(!r) return "";
+      const v = r.status==="RESOLVED" ? ((r.result&&r.result.verdict)||"?") : "";
+      return `<tr class="click" onclick="location.hash='#/job/${esc(id)}'">
+        <td class="mono">${esc(id)}</td>
+        <td>${esc(r.title)}</td>
+        <td>${verdictBadge(r)}</td>
+        <td class="mono">${esc(r.translation.digest.slice(0,10))}…</td>
+      </tr>`;
+    }).join("");
+    $("#jobsBox").innerHTML = `<div class="card" style="padding:6px 10px"><table>
+      <thead><tr><th>Job ID</th><th>Title</th><th>Status / verdict</th><th>Translation digest</th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="4" class="dim">No jobs yet.</td></tr>'}</tbody>
+    </table></div>
+    <p class="dim" style="font-size:12.5px">INCONCLUSIVE rows are kept on purpose: unproven never certifies — that is the designed fail-safe.</p>`;
+  }catch(e){
+    $("#jobsBox").innerHTML = '<p class="statusline err">Could not read jobs: '+esc(e.message)+'</p>';
+  }
+}
+
+/* ---------- job detail ---------- */
+function resultHTML(r){
+  const res = r.result||{};
+  const labels = (res.labels||[]).map((l,i)=>`<span class="badge ${esc(l)}">${esc(l)} · criterion ${i}</span>`).join(" ");
+  const cites = (res.citations||[]).map(c=>`<blockquote><span class="doc-label">criterion ${esc(c.criterion)} · source ${esc(c.source)}</span>${esc(c.quote)}</blockquote>`).join("");
+  const f = res.forensics||{};
+  return `
+    <div><span class="stamp ${esc(res.verdict||"")}">${esc(res.verdict||"NO VERDICT")}</span></div>
+    <p class="mono dim" style="letter-spacing:.12em;font-size:10.5px">CONSENSUS VERDICT · STUDIONET</p>
+    <p style="margin:8px 0">${esc(res.reason||"")}</p>
+    <p style="margin:8px 0">${labels}</p>
+    <h2 style="margin-top:16px">Citations (verbatim, re-validated on-chain)</h2>
+    <p class="id-sub">Sitasi verbatim yang direvalidasi on-chain.</p>
+    ${cites||'<p class="dim">No citations recorded.</p>'}
+    <h2 style="margin-top:16px">Deterministic forensics</h2>
+    <div class="kv">
+      <div class="k">MISSING NUMBERS</div><div class="mono">${f.missing_numbers&&f.missing_numbers.length?esc(f.missing_numbers.join(", ")):"none — every numeral preserved"}</div>
+      <div class="k">MISSING URLS</div><div class="mono">${f.missing_urls&&f.missing_urls.length?esc(f.missing_urls.join(", ")):"none"}</div>
+      <div class="k">MISSING PLACEHOLDERS</div><div class="mono">${f.missing_placeholders&&f.missing_placeholders.length?esc(f.missing_placeholders.join(", ")):"none"}</div>
+      <div class="k">SIZE</div><div class="mono">source ${esc(f.source_chars)} chars · translation ${esc(f.translation_chars)} chars</div>
+    </div>`;
+}
+async function renderJob(id){
+  app.innerHTML = `<p><a href="#/jobs" data-nav>← All jobs</a></p><div id="jobBox"><p class="statusline">Reading job ${esc(id)}…</p></div>`;
+  let r;
+  try{ r = await readContract("get_job", [id]); }
+  catch(e){ $("#jobBox").innerHTML = '<p class="statusline err">'+esc(e.message)+'</p>'; return; }
+  const open = r.status==="OPEN" || r.status==="DISPUTED";
+  app.innerHTML = `<p><a href="#/jobs" data-nav>← All jobs</a></p>
+  <div class="card">
+    <p class="eyebrow">JOB RECORD · LIVE FROM ${esc(CONTRACT_ADDR.slice(0,10))}…</p>
+    <h1 style="font-size:26px">${esc(r.title)}</h1>
+    <p>${verdictBadge(r)} <span class="mono dim">id: ${esc(r.id)} · owner ${esc(r.owner.slice(0,10))}…</span></p>
+    <h2 style="margin-top:14px">Pinned evidence</h2>
+    <div class="kv">
+      <div class="k">SOURCE · EN</div><div><a href="${esc(r.source.url)}" target="_blank" rel="noopener" class="mono">${esc(r.source.url)}</a><br><span class="mono dim">sha256 ${esc(r.source.digest)}</span></div>
+      <div class="k">TRANSLATION · ID</div><div><a href="${esc(r.translation.url)}" target="_blank" rel="noopener" class="mono">${esc(r.translation.url)}</a><br><span class="mono dim">sha256 ${esc(r.translation.digest)}</span></div>
+    </div>
+    <h2 style="margin-top:14px">Acceptance criteria</h2>
+    <ol style="margin:6px 0 0 18px;font-size:13.5px">${(r.criteria||[]).map(c=>`<li style="margin:4px 0">${esc(c)}</li>`).join("")}</ol>
+    ${r.status==="RESOLVED" ? resultHTML(r) : `
+      <h2 style="margin-top:16px">Not resolved yet</h2>
+      <p id="cd" class="countdown"></p>
+      ${open?'<button class="btn" id="resolveBtn">Resolve on-chain</button> <span class="dim" style="font-size:12.5px">Permissionless — anyone may resolve after the challenge deadline.</span>':'<p class="dim">This job is terminal.</p>'}
+      <p id="resolveOut"></p>`}
+  </div>`;
+  if(open){
+    const cdEl = $("#cd"), btn = $("#resolveBtn");
+    const tick = setInterval(()=>{
+      const rem = (r.challenge_deadline||0) - Math.floor(Date.now()/1000);
+      if(rem>0) cdEl.textContent = "Challenge period active — resolves in "+Math.floor(rem/60)+"m "+(rem%60)+"s (node-clock deadline "+new Date(r.challenge_deadline*1000).toLocaleTimeString()+")";
+      else { cdEl.textContent="Challenge period elapsed — ready to resolve."; clearInterval(tick); if(btn) btn.disabled=false; }
+    }, 500);
+    if(btn){
+      btn.disabled = (r.challenge_deadline||0) > Math.floor(Date.now()/1000);
+      btn.onclick = async ()=>{
+        btn.disabled = true;
+        const out = $("#resolveOut");
+        try{
+          const res = await sendWrite("resolve", [id], s=>out.innerHTML='<p class="statusline">'+esc(s)+'</p>');
+          out.innerHTML = '<p class="statusline">Resolved — tx <a href="'+txLink(res.txHash)+'" target="_blank" rel="noopener">'+esc(res.txHash.slice(0,22))+'…</a> — reloading record…</p>';
+          await sleep(1200); renderJob(id);
+        }catch(e){ out.innerHTML = '<p class="statusline err">'+esc(e.message)+'</p>'; btn.disabled=false; }
+      };
+    }
+  }
+}
+
+/* ---------- certify ---------- */
+async function renderCertify(){
+  const w = loadWallet();
+  app.innerHTML = `
+  <h1>Certify a translation</h1>
+  <p class="id-sub">Sertifikasi terjemahan — dua klik, kontrak beneran.</p>
+  <div class="card">
+    <h2 style="margin-top:0">1 · Pick a demonstration pair</h2>
+    <p class="dim" style="font-size:13px">Both run the real deployed contract — the chain decides, expectations are labeled for orientation only.</p>
+    <p style="margin:10px 0">
+      <button class="btn secondary" data-demo="good">Faithful translation → expected APPROVED</button>
+      <button class="btn secondary" data-demo="bad" style="margin-left:8px">Values dropped → expected REJECTED</button>
+    </p>
+    <p class="mono dim" id="demoHint"></p>
+  </div>
+  <div class="card" id="formCard" ${"hidden"}>
+    <h2 style="margin-top:0">2 · Open the job on-chain</h2>
+    <label>Job ID <span class="dim">(unique, lowercase)</span></label>
+    <input type="text" id="jobId">
+    <label>Title</label>
+    <input type="text" id="title">
+    <label>Source (EN) — commit-pinned</label>
+    <input type="text" id="srcUrl" class="mono" readonly>
+    <label>Translation (ID) — commit-pinned</label>
+    <input type="text" id="trUrl" class="mono" readonly>
+    <div class="kv" style="margin-top:8px">
+      <div class="k">SOURCE SHA-256</div><div class="mono" id="srcDigest">computing…</div>
+      <div class="k">TRANSLATION SHA-256</div><div class="mono" id="trDigest">computing…</div>
+    </div>
+    <label>Acceptance criteria (natural language, client-authored)</label>
+    <textarea id="crit0" rows="3"></textarea>
+    <textarea id="crit1" rows="2" style="margin-top:6px"></textarea>
+    <textarea id="crit2" rows="2" style="margin-top:6px"></textarea>
+    <details><summary>Windows (advanced)</summary>
+      <label>Response window (seconds)</label><input type="text" id="window" value="3600">
+      <label>Challenge period (seconds, min 300)</label><input type="text" id="challenge" value="300">
+    </details>
+    <p style="margin-top:12px"><button class="btn" id="openBtn" disabled>Open job on-chain</button></p>
+    <p id="openOut"></p>
+    <div id="postOpen" class="hidden">
+      <h2 style="margin-top:14px">3 · Wait out the challenge, then resolve</h2>
+      <p id="cd" class="countdown"></p>
+      <p><button class="btn" id="resolveBtn" disabled>Resolve on-chain</button></p>
+      <p id="resolveOut"></p>
+    </div>
+  </div>
+  <div class="card"><p class="dim" style="font-size:12.5px">Writes use a burner wallet created in this browser (localStorage) and funded by the Studionet testnet faucet — no real assets. ${w?'<span class="mono">burner: '+esc(w.address)+'</span>':'<span class="mono">no burner yet — one is created on your first write</span>'}</p></div>`;
+  let digestBusy = false;
+  async function fillDemo(key){
+    const d = DEMOS[key];
+    $("#demoHint").textContent = d.hint;
+    $("#formCard").hidden = false;
+    $("#jobId").value = "demo-" + key + "-" + Math.random().toString(36).slice(2,6);
+    $("#title").value = d.title;
+    $("#srcUrl").value = RAW + d.source;
+    $("#trUrl").value = RAW + d.file;
+    $("#crit0").value = CRITERIA_DEFAULT[0];
+    $("#crit1").value = CRITERIA_DEFAULT[1];
+    $("#crit2").value = CRITERIA_DEFAULT[2];
+    if(digestBusy) return; digestBusy = true;
+    try{
+      const [s,t] = await Promise.all([fetchText($("#srcUrl").value), fetchText($("#trUrl").value)]);
+      $("#srcDigest").textContent = await sha256Hex(s);
+      $("#trDigest").textContent = await sha256Hex(t);
+      $("#openBtn").disabled = false;
+    }catch(e){
+      $("#srcDigest").textContent = "fetch failed: "+e.message;
+      $("#trDigest").textContent = "";
+    }
+    digestBusy = false;
+  }
+  app.querySelectorAll("[data-demo]").forEach(b=>b.addEventListener("click", ()=>fillDemo(b.getAttribute("data-demo"))));
+  $("#openBtn").onclick = async ()=>{
+    const out = $("#openOut"), btn = $("#openBtn");
+    btn.disabled = true;
+    try{
+      const criteria = JSON.stringify([$("#crit0").value.trim(), $("#crit1").value.trim(), $("#crit2").value.trim()]);
+      const args = [$("#jobId").value.trim(), $("#title").value.trim(), $("#srcUrl").value, $("#srcDigest").textContent, $("#trUrl").value, $("#trDigest").textContent, criteria, Number($("#window").value)||3600, Number($("#challenge").value)||300];
+      const res = await sendWrite("open_job", args, s=>out.innerHTML='<p class="statusline">'+esc(s)+'</p>');
+      out.innerHTML = '<p class="statusline">Job opened — tx <a href="'+txLink(res.txHash)+'" target="_blank" rel="noopener">'+esc(res.txHash.slice(0,22))+'…</a></p>';
+      $("#postOpen").classList.remove("hidden");
+      $("#resolveBtn").disabled = true;
+      const cd = $("#cd");
+      const deadline = Math.floor(Date.now()/1000) + (Number($("#challenge").value)||300);
+      const tick = setInterval(()=>{
+        const rem = deadline - Math.floor(Date.now()/1000);
+        if(rem>0) cd.textContent = "Challenge period — resolve unlocks in "+Math.floor(rem/60)+"m "+(rem%60)+"s";
+        else { cd.textContent = "Challenge period elapsed — ready to resolve."; clearInterval(tick); $("#resolveBtn").disabled=false; }
+      }, 500);
+      $("#resolveBtn").onclick = async ()=>{
+        const rb = $("#resolveBtn"), rout = $("#resolveOut");
+        rb.disabled = true;
+        try{
+          const r2 = await sendWrite("resolve", [$("#jobId").value.trim()], s=>rout.innerHTML='<p class="statusline">'+esc(s)+'</p>');
+          rout.innerHTML = '<p class="statusline">Resolved — tx <a href="'+txLink(r2.txHash)+'" target="_blank" rel="noopener">'+esc(r2.txHash.slice(0,22))+'…</a> — opening the job record…</p>';
+          await sleep(1200); location.hash = "#/job/"+$("#jobId").value.trim();
+        }catch(e){ rout.innerHTML = '<p class="statusline err">'+esc(e.message)+'</p>'; rb.disabled=false; }
+      };
+    }catch(e){ out.innerHTML = '<p class="statusline err">'+esc(e.message)+'</p>'; btn.disabled=false; }
+  };
+}
+
+/* ---------- boot ---------- */
+document.documentElement.dataset.base = "";
+$("#explorerLink").href = EXPLORER + "/contracts/" + CONTRACT_ADDR;
+$("#footContract").textContent = "Contract " + CONTRACT_ADDR + " · deployed code == repo (sha256-proof in docs/SUBMISSION_DRAFT.md)";
+route();
+</script>
+</body>
+</html>
